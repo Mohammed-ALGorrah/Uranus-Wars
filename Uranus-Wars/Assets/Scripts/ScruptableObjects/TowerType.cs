@@ -5,6 +5,7 @@ using UnityEngine;
 	public enum TowerType {
     
 		fighter,
-		collector,
+		Storage,
+		Mine
 
 	}

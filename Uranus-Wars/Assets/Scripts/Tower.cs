@@ -34,6 +34,7 @@ public class Tower : MonoBehaviour
 	void Dead(HealthSystem obj)
 	{
 		Destroy(gameObject);
+		transform.parent.GetComponent<Platform>().Tower = null;
 	}
     
 	void OnTriggerEnter(Collider coll)
