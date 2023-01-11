@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85a626102d34e44cb1d4f34148ec15d, type: 3}
+  m_Name: FirstShip
+  m_EditorClassIdentifier: 
+  Name: 
+  Image: {fileID: 0}
+  Type: 0
+  speed: 2
+  price: 0
+  power: 1
+  maxHealth: 100
+  fireRate: 9
+  maxCapacity: 0
+  currentCapacity: 0
+  maxRange: 4
+  bulletPrefab: {fileID: 7911372550039931701, guid: 135616d75f75dbc41b878a607713662b, type: 3}
