@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : NetworkBehaviour
 {
 	public TowerSO towerInfo;
 	HealthSystem healthSystem;
@@ -25,16 +26,11 @@ public class Tower : MonoBehaviour
 	{
 		healthSystem.OnDead -= Dead;
 	}
-
-    void Update()
-    {
-        
-    }
     
 	void Dead(HealthSystem obj)
 	{
 		Destroy(gameObject);
-		transform.parent.GetComponent<Platform>().Tower = null;
+		//transform.parent.GetComponent<Platform>().Tower = null;
 	}
     
 	void OnTriggerEnter(Collider coll)

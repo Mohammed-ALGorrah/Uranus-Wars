@@ -60,15 +60,15 @@ public class Spawner : MonoBehaviour,INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        if (characterInputHandler == null && NetworkPlayer.Local != null)
-        {
-            characterInputHandler = NetworkPlayer.Local.GetComponent<CharacterInputHandler>();
-        }
+        //if (characterInputHandler == null && NetworkPlayer.Local != null)
+        //{
+        //    characterInputHandler = NetworkPlayer.Local.GetComponent<CharacterInputHandler>();
+        //}
 
-        if (characterInputHandler != null)
-        {
-            input.Set(characterInputHandler.GetNetworkInput());
-        }
+        //if (characterInputHandler != null)
+        //{
+        //    input.Set(characterInputHandler.GetNetworkInput());
+        //}
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
@@ -80,13 +80,13 @@ public class Spawner : MonoBehaviour,INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Debug.Log("OnPlayerJoined we are server");
-            var playerObject = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+            Debug.Log("OnPlayerJoined I'm server");
+            //var playerObject = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
 
-            if (runner.ActivePlayers.Count() > 1)
-            {
-                playerObject.canPlay = true;
-            }
+            //if (runner.ActivePlayers.Count() > 1)
+            //{
+            //    playerObject.canPlay = true;
+            //}
         }
         else
         {

@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttack : MonoBehaviour
+public class TowerAttack : NetworkBehaviour
 {
 	TowerSO towerInfo;
 	public Transform lookX,lookY,FirePoint;
@@ -33,11 +34,11 @@ public class TowerAttack : MonoBehaviour
 		{
 			nextTimeToFire = Time.time + 1f / towerInfo.fireRate;
 			
-			Bullet bullet = Instantiate(towerInfo.bulletPrefab);
-			bullet.FirePoint = FirePoint;
-			bullet.transform.SetParent(transform);
-			bullet.transform.position = FirePoint.position;
-			bullet.damage = towerInfo.power;
+			//Bullet bullet = Instantiate(towerInfo.bulletPrefab);
+			//bullet.FirePoint = FirePoint;
+			//bullet.transform.SetParent(transform);
+			//bullet.transform.position = FirePoint.position;
+			//bullet.damage = towerInfo.power;
 		}
 		
 		

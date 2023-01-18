@@ -29,11 +29,6 @@ public class SpaceShip : MonoBehaviour
 	{
 		healthSystem.OnDead -= Dead;
 	}
-	
-	void Update()
-	{
-        
-	}
     
 	void Dead(HealthSystem obj)
 	{

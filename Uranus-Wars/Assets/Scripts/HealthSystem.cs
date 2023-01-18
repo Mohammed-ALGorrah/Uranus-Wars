@@ -13,10 +13,6 @@ public class HealthSystem : MonoBehaviour
 	public event Action<HealthSystem> OnTakeDamage;
 	public event Action<HealthSystem> OnDead;
 	
-	void Start()
-	{
-		
-	}
 	public void TakeDamage(float amount)
 	{
 		if (IsDead())
