@@ -11,14 +11,11 @@ public class SpaceShipMovement : NetworkBehaviour
     public SpaceshipSO spaceShipInfo;
     public Transform mainTarget, secTarget;
     NavMeshAgent navAgent;
-    SpaceShipAttack spaceAttack;
     NetworkObject networkObject;
-    public Transform model;
 
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
-        spaceAttack = GetComponent<SpaceShipAttack>();
         networkObject = GetComponent<NetworkObject>();
     }
 
@@ -37,16 +34,17 @@ public class SpaceShipMovement : NetworkBehaviour
             navAgent.SetDestination(mainTarget.position);
         }
     }
+
     public void lookAtMainTarget()
     {
         //Debug.Log("lookAtMainTarget");
-        GetComponent<NetworkTransform>().Transform.LookAt(mainTarget);
+        transform.LookAt(mainTarget);
     }
 
     public void lookAtSecoundTarget()
     {
         //Debug.Log("lookAtSecoundTarget");
-        GetComponent<NetworkTransform>().Transform.LookAt(mainTarget);
+        transform.LookAt(secTarget);
     }
 }
 

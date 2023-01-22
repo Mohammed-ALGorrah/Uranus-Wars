@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.16216, y: 1.9807355, z: 1.9820144}
-  m_Center: {x: -0.27903038, y: 1.858749, z: -0.13782942}
+  m_Size: {x: 2.46, y: 2.24, z: 2.37}
+  m_Center: {x: -0.27903038, y: 1.12, z: -0.13782942}
 --- !u!1 &137518
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,14 +193,15 @@ GameObject:
   - component: {fileID: 3384004}
   - component: {fileID: 2324556}
   - component: {fileID: 9576110}
-  - component: {fileID: 1921262656}
   - component: {fileID: 1921262658}
   - component: {fileID: 1921262659}
   - component: {fileID: 1921262660}
   - component: {fileID: 1921262657}
+  - component: {fileID: 1337222536}
+  - component: {fileID: 1337222537}
   m_Layer: 0
   m_Name: Mortar
-  m_TagString: Targetable
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,7 +215,7 @@ Transform:
   m_GameObject: {fileID: 176338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999988, y: 0.5, z: 0.49999988}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 474202}
@@ -292,22 +293,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!54 &1921262656
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176338}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1921262658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,9 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17298f4e9d705c04d87fe7e542a5ed24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookX: {fileID: 0}
-  lookY: {fileID: 0}
-  FirePoint: {fileID: 0}
+  _interpolationDataSource: 0
+  lookX: {fileID: 430502}
+  lookY: {fileID: 474202}
+  FirePoint: {fileID: 4880304188483905607}
+  xLookPoint: {fileID: 0}
+  yLookPoint: {fileID: 0}
 --- !u!114 &1921262659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fe7639964d1ae4a861044de8f02ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   towerInfo: {fileID: 11400000, guid: 16b6a42130c596f44b36fa6c36811b9b, type: 2}
 --- !u!114 &1921262660
 MonoBehaviour:
@@ -348,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92914e4f886bc334c8a5b07991122d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   currentHealth: 0
   maxHealth: 0
 --- !u!135 &1921262657
@@ -363,6 +353,35 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.4017606
   m_Center: {x: -0.0000005364418, y: 0.4093467, z: -0.0000025629997}
+--- !u!54 &1337222536
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176338}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1337222537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae48bd3830d8e741af8fac9e4e78909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
 --- !u!1 &180506
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9207961042986441829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.659, z: 1.778}
+  m_LocalPosition: {x: -0, y: 0.611, z: 1.843}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

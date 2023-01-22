@@ -13,6 +13,12 @@ public class SpaceShipAttack : NetworkBehaviour
     float nextTimeToFire;
     bool canAttackMain;
     bool canAttackSec;
+    NetworkObject networkObject;
+
+    private void Awake()
+    {
+        networkObject = GetComponent<NetworkObject>();
+    }
 
     void Start()
     {
@@ -30,16 +36,11 @@ public class SpaceShipAttack : NetworkBehaviour
             {
                 navAgent.speed = 0;
                 canAttackSec = true;
-                navAgent.isStopped = true;
-                //navAgent.enabled = false;
-                
                 attack();
             }
             else
             {
                 canAttackSec = false;
-                //navAgent.enabled = true;
-                navAgent.isStopped = false;
                 navAgent.speed = spaceShipInfo.speed;
             }
         }
@@ -49,15 +50,11 @@ public class SpaceShipAttack : NetworkBehaviour
             {
                 navAgent.speed = 0;
                 canAttackMain = true;
-                //navAgent.enabled = false;
-                navAgent.isStopped = true;
                 attack();
             }
             else
             {
                 canAttackMain = false;
-                //navAgent.enabled = true;
-                navAgent.isStopped = false;
                 navAgent.speed = spaceShipInfo.speed;
             }
         }
@@ -66,16 +63,33 @@ public class SpaceShipAttack : NetworkBehaviour
 
     void attack()
     {
-        //if (Time.time >= nextTimeToFire)
-        //{
-        //	nextTimeToFire = Time.time + 1f / spaceShipInfo.fireRate;
+        if (Time.time >= nextTimeToFire)
+        {
+            nextTimeToFire = Time.time + 1f / spaceShipInfo.fireRate;
 
-        //	Bullet bullet = Instantiate(spaceShipInfo.bulletPrefab);
-        //	bullet.FirePoint = FirePoint;
-        //	bullet.transform.SetParent(transform);
-        //	bullet.transform.position = FirePoint.position;
-        //	bullet.damage = spaceShipInfo.power;
-        //}
+            Runner.Spawn(spaceShipInfo.bulletPrefab, FirePoint.position, Quaternion.LookRotation(FirePoint.forward,FirePoint.up), Object.InputAuthority, (runner, spawnedRocket) =>
+            {
+
+                spawnedRocket.GetComponent<Bullet>().damage = spaceShipInfo.power;
+            });
+
+            //Bullet bullet = Instantiate(spaceShipInfo.bulletPrefab);
+            //bullet.FirePoint = FirePoint;
+            //bullet.transform.SetParent(transform);
+            //bullet.transform.position = FirePoint.position;
+            //bullet.damage = spaceShipInfo.power;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Targetable"))
+        {
+            if (movment.secTarget == null)
+            {
+                movment.secTarget = other.gameObject.transform;
+            }
+        }
     }
 
     void OnTriggerStay(Collider coll)
@@ -84,11 +98,11 @@ public class SpaceShipAttack : NetworkBehaviour
         {
             if (canAttackMain)
             {
-                //movment.lookAtMainTarget();
+                movment.lookAtMainTarget();
             }
-            if (canAttackSec)
+            else if (canAttackSec)
             {
-                //movment.lookAtSecoundTarget();
+                movment.lookAtSecoundTarget();
             } 
         }
     }

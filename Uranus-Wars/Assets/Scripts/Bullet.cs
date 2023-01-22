@@ -1,27 +1,38 @@
-﻿using System.Collections;
+﻿using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+
+public class Bullet : NetworkBehaviour
 {
 	ParticleSystem onHitfx;
 	ParticleSystem projectileFx;
 	[HideInInspector]
-	public Transform FirePoint;
-	[HideInInspector]
 	public float damage; 
 	Transform parent;
-	
+    TickTimer maxLiveDurationTickTimer = TickTimer.None;
+
     void Start()
     {
 	    parent = transform.parent;
-	    Destroy(gameObject,0.6f);
+        maxLiveDurationTickTimer = TickTimer.CreateFromSeconds(Runner, 10);
+        //Check if the rocket has reached the end of its life
 
     }
 
     // Update is called once per frame
-    void Update()
+    public override void FixedUpdateNetwork()
     {
-	    transform.position += FirePoint.forward * Time.deltaTime * 8;
+        if (Object.HasStateAuthority)
+        {
+            if (maxLiveDurationTickTimer.Expired(Runner))
+            {
+                Runner.Despawn(GetComponent<NetworkObject>());
+
+                return;
+            }
+        }
+        transform.position += transform.forward * Time.deltaTime * 2;
     }
 }

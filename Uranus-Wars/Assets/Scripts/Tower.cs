@@ -29,8 +29,7 @@ public class Tower : NetworkBehaviour
     
 	void Dead(HealthSystem obj)
 	{
-		Destroy(gameObject);
-		//transform.parent.GetComponent<Platform>().Tower = null;
+		Runner.Despawn(GetComponent<NetworkObject>());
 	}
     
 	void OnTriggerEnter(Collider coll)

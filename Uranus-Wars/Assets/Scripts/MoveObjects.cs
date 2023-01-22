@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveObjects : MonoBehaviour
 {
@@ -11,9 +12,17 @@ public class MoveObjects : MonoBehaviour
 	Transform toDrag;
 	Rigidbody toDragRigid;
 	Vector3 perviousPosi;
-	
+	Touch touch;
+	Text txt;
 
-	void FixedUpdate()
+
+	private void Awake()
+    {
+		cam = Camera.main;
+		txt = GameObject.Find("txt").GetComponent<Text>();
+    }
+
+    void FixedUpdate()
 	{
 		print(Input.touchCount);
 	    if (Input.touchCount != 1)
@@ -22,12 +31,13 @@ public class MoveObjects : MonoBehaviour
 	    	return;
 	    }
 	    
-	    Touch touch = Input.touches[0];
+	    touch = Input.touches[0];
 	    Vector3 pos = touch.position;
 	    
 	    if (touch.phase == TouchPhase.Began)
 	    {
 	    	print("Began");
+			txt.text = "begin";
 	    	RaycastHit hit;
 	    	Ray ray = cam.ScreenPointToRay(pos);
 	    	if (Physics.Raycast(ray,out hit))
@@ -47,12 +57,13 @@ public class MoveObjects : MonoBehaviour
 	    if (touched && touch.phase == TouchPhase.Moved)
 	    {
 	    	print("Moved");
-	    	float posXnow = Input.GetTouch(0).position.x - posX;
+			txt.text = "Moved";
+			float posXnow = Input.GetTouch(0).position.x - posX;
 		    float posYnow = Input.GetTouch(0).position.y - posY;
 		    Vector3 curPos = new Vector3(posXnow,posYnow,dis.z);
 		    
 		    Vector3 worldPos = cam.ScreenToWorldPoint(curPos) - perviousPosi;
-		    worldPos = new Vector3(worldPos.x,worldPos.y,0);
+		    worldPos = new Vector3(worldPos.x,0, worldPos.y);
 		    
 		    toDragRigid.velocity = worldPos /(Time.deltaTime * 10);
 		    
@@ -64,7 +75,8 @@ public class MoveObjects : MonoBehaviour
 	    if (dragging && touch.phase == TouchPhase.Ended && touch.phase == TouchPhase.Canceled)
 	    {
 	    	print("Canceled");
-	    	dragging = touched = false;
+			txt.text = "Canceled";
+			dragging = touched = false;
 	    	perviousPosi = Vector3.zero;
 	    	SetFreeProperties(toDragRigid);
 	    }
@@ -85,4 +97,21 @@ public class MoveObjects : MonoBehaviour
 		rg.drag = 5;
 		
 	}
+
+	void OnTriggerEnter(Collider coll)
+	{
+		if (coll.CompareTag("Platform"))
+		{
+			if (coll.GetComponent<Platform>() != null && touch.phase == TouchPhase.Ended)
+			{
+
+				if (coll.GetComponent<Platform>().Tower == null )
+				{
+					transform.SetParent(coll.transform);
+					coll.GetComponent<Platform>().SetTower(transform);
+				}
+			}
+		}
+	}
+
 }

@@ -20,22 +20,18 @@ public class Platform : MonoBehaviour
     }
     
     
-	void OnTriggerEnter(Collider coll)
-	{
-		if (coll.CompareTag("Tower"))
-		{
-			if (Tower == null)
-			{
-				coll.transform.SetParent(transform);
-				Tower = coll.transform;
-				StartCoroutine(setPos(coll.transform));
-			}
-		}
-	}
+ public void SetTower(Transform t)
+    {
+        Tower = t;
+        StartCoroutine(setPos(t));
+    }
 	
 	IEnumerator setPos(Transform t)
 	{
 		yield return new WaitForSeconds(0.3f);
 		t.position = transform.Find("Point").transform.position;
 	}
+
+
+
 }
