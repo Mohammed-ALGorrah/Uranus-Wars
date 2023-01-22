@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Uranus-Wars/Assets/Abod.meta
 guid: 1cee91a270357c343a077c8d76777235
+========
+guid: 38f7583f5dc478f44bd1227b71b5e22d
+>>>>>>>> 0b37027ca0586779d8a1ce27a058b35a4aaa265a:Uranus-Wars/Assets/Sixpolys.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

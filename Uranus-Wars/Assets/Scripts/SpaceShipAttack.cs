@@ -67,10 +67,10 @@ public class SpaceShipAttack : NetworkBehaviour
         {
             nextTimeToFire = Time.time + 1f / spaceShipInfo.fireRate;
 
-            Runner.Spawn(spaceShipInfo.bulletPrefab, FirePoint.position, Quaternion.LookRotation(FirePoint.forward,FirePoint.up), Object.InputAuthority, (runner, spawnedRocket) =>
+            Runner.Spawn(spaceShipInfo.bulletPrefab, FirePoint.position, Quaternion.LookRotation(FirePoint.forward,FirePoint.up), Object.StateAuthority, (runner, spawnedBullet) =>
             {
-
-                spawnedRocket.GetComponent<Bullet>().damage = spaceShipInfo.power;
+                spawnedBullet.GetComponent<Bullet>().damage = spaceShipInfo.power;
+                spawnedBullet.GetComponent<Bullet>().Fire(networkObject);
             });
 
             //Bullet bullet = Instantiate(spaceShipInfo.bulletPrefab);
@@ -96,6 +96,10 @@ public class SpaceShipAttack : NetworkBehaviour
     {
         if (coll.CompareTag("Targetable"))
         {
+            if (movment.secTarget == null)
+            {
+                movment.secTarget = coll.gameObject.transform;
+            }
             if (canAttackMain)
             {
                 movment.lookAtMainTarget();

@@ -10,7 +10,14 @@ public class TowerAttack : NetworkBehaviour
 	float nextTimeToFire = 0;
 	public Transform xLookPoint;
 	public Transform yLookPoint;
-	void Start()
+	NetworkObject networkObject;
+
+    private void Awake()
+    {
+        networkObject  = GetComponent<NetworkObject>();
+    }
+
+    void Start()
     {
 	    towerInfo = GetComponent<Tower>().towerInfo;
     }
@@ -34,13 +41,19 @@ public class TowerAttack : NetworkBehaviour
 		if (Time.time >= nextTimeToFire)
 		{
 			nextTimeToFire = Time.time + 1f / towerInfo.fireRate;
-			
-			//Bullet bullet = Instantiate(towerInfo.bulletPrefab);
-			//bullet.FirePoint = FirePoint;
-			//bullet.transform.SetParent(transform);
-			//bullet.transform.position = FirePoint.position;
-			//bullet.damage = towerInfo.power;
-		}
+
+            Runner.Spawn(towerInfo.bulletPrefab, FirePoint.position, Quaternion.LookRotation(FirePoint.forward, FirePoint.up), Object.StateAuthority, (runner, spawnedBullet) =>
+            {
+                spawnedBullet.GetComponent<Bullet>().damage = towerInfo.power;
+                spawnedBullet.GetComponent<Bullet>().Fire(networkObject);
+            });
+
+            //Bullet bullet = Instantiate(towerInfo.bulletPrefab);
+            //bullet.FirePoint = FirePoint;
+            //bullet.transform.SetParent(transform);
+            //bullet.transform.position = FirePoint.position;
+            //bullet.damage = towerInfo.power;
+        }
 		
 		
 	}

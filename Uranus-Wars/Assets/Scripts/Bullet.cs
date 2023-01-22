@@ -12,13 +12,22 @@ public class Bullet : NetworkBehaviour
 	public float damage; 
 	Transform parent;
     TickTimer maxLiveDurationTickTimer = TickTimer.None;
+    public NetworkObject firedByNetworkObject;
+    public NetworkObject networkObject;
 
+    private void Awake()
+    {
+        networkObject = GetComponent<NetworkObject>();
+    }
     void Start()
     {
 	    parent = transform.parent;
-        maxLiveDurationTickTimer = TickTimer.CreateFromSeconds(Runner, 10);
-        //Check if the rocket has reached the end of its life
+    }
 
+    public void Fire(NetworkObject firedByNetworkObject)
+    {
+        this.firedByNetworkObject = firedByNetworkObject;
+        maxLiveDurationTickTimer = TickTimer.CreateFromSeconds(Runner, 10);
     }
 
     // Update is called once per frame

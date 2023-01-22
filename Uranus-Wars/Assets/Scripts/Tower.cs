@@ -7,27 +7,27 @@ public class Tower : NetworkBehaviour
 {
 	public TowerSO towerInfo;
 	HealthSystem healthSystem;
+	NetworkObject networkObject;
 	
 	
 	void Awake()
     {
-	    healthSystem = GetComponent<HealthSystem>();
+        networkObject = GetComponent<NetworkObject>();
+        healthSystem = GetComponent<HealthSystem>();
 	    healthSystem.maxHealth = towerInfo.maxHealth;
 	    healthSystem.currentHealth = towerInfo.maxHealth;
 	    GetComponent<SphereCollider>().radius = towerInfo.maxRange;
     }
-	
-	private void OnEnable()
-	{
-		healthSystem.OnDead += Dead;
-	}
-	
-	private void OnDisable()
-	{
-		healthSystem.OnDead -= Dead;
-	}
-    
-	void Dead(HealthSystem obj)
+
+    public override void FixedUpdateNetwork()
+    {
+        if (healthSystem.IsDead())
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
 	{
 		Runner.Despawn(GetComponent<NetworkObject>());
 	}
@@ -36,7 +36,11 @@ public class Tower : NetworkBehaviour
 	{
 		if (coll.GetComponent<Bullet>() != null)
 		{
-			healthSystem.TakeDamage(coll.GetComponent<Bullet>().damage);
-		}
+            if (coll.GetComponent<Bullet>().firedByNetworkObject != networkObject)
+            {
+                healthSystem.TakeDamage(coll.GetComponent<Bullet>().damage);
+                Runner.Despawn(coll.GetComponent<Bullet>().networkObject);
+            }
+        }
 	}
 }
