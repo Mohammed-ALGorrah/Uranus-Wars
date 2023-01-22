@@ -1,17 +1,20 @@
-﻿using System.Collections;
+﻿using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SpaceShip : MonoBehaviour
+public class SpaceShip : NetworkBehaviour
 {
     
 	public SpaceshipSO spaceShipInfo;
 	HealthSystem healthSystem;
 	NavMeshAgent navagent;
+	NetworkObject networkObject;
 	
     void Awake()
     {
+		networkObject = GetComponent<NetworkObject>();
 	    healthSystem = GetComponent<HealthSystem>();
 	    navagent = GetComponent<NavMeshAgent>();
 	    GetComponent<SphereCollider>().radius = spaceShipInfo.maxRange;
@@ -20,26 +23,29 @@ public class SpaceShip : MonoBehaviour
 	    navagent.speed = spaceShipInfo.speed;
 
     }
-	void OnEnable()
+    public override void FixedUpdateNetwork()
 	{
-		healthSystem.OnDead += Dead;
+		if (healthSystem.IsDead())
+		{
+			Dead();
+		}
 	}
-	
-	void OnDisable()
+
+
+    void Dead()
 	{
-		healthSystem.OnDead -= Dead;
-	}
-    
-	void Dead(HealthSystem obj)
-	{
-		Destroy(gameObject);
-	}
+        Runner.Despawn(GetComponent<NetworkObject>());
+    }
     
 	void OnTriggerEnter(Collider coll)
 	{
 		if (coll.GetComponent<Bullet>() != null)
 		{
-			healthSystem.TakeDamage(coll.GetComponent<Bullet>().damage);
-		}
+			if (coll.GetComponent<Bullet>().firedByNetworkObject != networkObject)
+			{
+				healthSystem.TakeDamage(coll.GetComponent<Bullet>().damage);
+                Runner.Despawn(coll.GetComponent<Bullet>().networkObject);
+            }
+        }
 	}
 }
