@@ -59,6 +59,7 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         NetworkRunnerHandler networkRunnerHandler = FindObjectOfType<NetworkRunnerHandler>();
 
+        // GameScene3 --- GameScene2
         networkRunnerHandler.CreateGame(sessionNameInputField.text, "GameScene2");
 
         HideAllPanels();

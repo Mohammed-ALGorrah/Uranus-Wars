@@ -40,24 +40,24 @@ public class ScrollZoom : MonoBehaviour
         if (isPanning)
         {
             Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - panOrigin);
-            Vector3 move = new Vector3(-pos.y * panSpeed * Time.deltaTime, 0, pos.x * panSpeed * Time.deltaTime);
-            if (Camera.main.transform.position.z > -1945 ) {
-                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x , Camera.main.transform.position.y , -1945);
+            Vector3 move = new Vector3(pos.x * panSpeed * Time.deltaTime, 0, pos.y * panSpeed * Time.deltaTime);
+            if (Camera.main.transform.position.z > -1974 ) {
+                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x , Camera.main.transform.position.y , -1974);
                 return;
             }
-            else if (Camera.main.transform.position.z < -1990)
+            else if (Camera.main.transform.position.z < -1979)
             {
-                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -1990);
+                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -1979);
                 return;
             }
-            else if (Camera.main.transform.position.x > 970 )
+            else if (Camera.main.transform.position.x >  975)
             {
-                Camera.main.transform.position = new Vector3(970, Camera.main.transform.position.y, Camera.main.transform.position.z);
+                Camera.main.transform.position = new Vector3(975, Camera.main.transform.position.y, Camera.main.transform.position.z);
                 return;
             }
-            else if (Camera.main.transform.position.x < 958)
+            else if (Camera.main.transform.position.x < 945)
             {
-                Camera.main.transform.position = new Vector3(958, Camera.main.transform.position.y, Camera.main.transform.position.z);
+                Camera.main.transform.position = new Vector3(945, Camera.main.transform.position.y, Camera.main.transform.position.z);
                 return;
             }
             else

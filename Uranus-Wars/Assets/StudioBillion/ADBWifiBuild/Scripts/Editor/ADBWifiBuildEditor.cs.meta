@@ -1,15 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Uranus-Wars/Assets/StudioBillion/ADBWifiBuild/Scripts/Editor/ADBWifiBuildEditor.cs.meta
 guid: 8a588221cd0dcce469d8cd6bdad0fa5a
-========
-guid: a756dfb0e358640b3a73177a1daf9fe9
-labels:
-- SIXPAutosaver
-- Sixpolys
-timeCreated: 1433224429
-licenseType: Store
->>>>>>>> 0b37027ca0586779d8a1ce27a058b35a4aaa265a:Uranus-Wars/Assets/Sixpolys/SIXP Autosaver/Editor/AutoSave.cs.meta
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0

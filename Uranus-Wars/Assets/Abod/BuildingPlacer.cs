@@ -16,15 +16,11 @@ public class BuildingPlacer : MonoBehaviour
         {
             touch = Input.GetTouch(0);
 
-            m_Text.text = "Touch Position : " + touch.position;
+           // m_Text.text = "Touch Position : " + touch.position;
             if (buildPrefab != null)
             {
                 buildPrefab.transform.position = touch.position;
             }
-        }
-        else
-        {
-            m_Text.text = "No touch contacts";
         }
         // Check if the player has pressed the mouse button down
         if (Input.GetMouseButtonDown(0))
